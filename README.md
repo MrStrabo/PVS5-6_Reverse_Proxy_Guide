@@ -1,6 +1,8 @@
 # PVS5/6 Reverse Proxy Guide
 This is a guide to establish a working proxy/bridge to the PVS that you can use call its API locally.  Having access to the API opens the door to self-monitoring for the SunPower system.
-Alot of the info from this guide comes from [Dolf Starreveld's documentation](https://starreveld.com/PVS6%20Access%20and%20API.pdf).  
+
+Alot of the info from this guide comes from [Dolf Starreveld's documentation](https://starreveld.com/PVS6%20Access%20and%20API.pdf) and the [PVS6 Notes](https://gist.github.com/koleson/5c719620039e0282976a8263c068e85c) written by [/u/ItsaMeKielO](https://www.reddit.com/user/ItsaMeKielO/).
+
 Other info comes from info I found in the [/r/Sunpower subreddit](https://www.reddit.com/r/sunpower).
 
 Prior to trying anything here, you will want to block the PVS from the internet on your wifi network.  This should force it over to cellular mode which, in theory, should not do a firmware update.
@@ -96,11 +98,12 @@ To do this, we will need to install what is called a "reverse proxy".  This will
    
 ## Directly connect to the PVS via its wifi hotspot 
 
-At least for my PVS, which has firmware 2025.04 build 61829, the PVS's wifi hotspot appears to be on permanently (or at least a very very long time).  Prior versions only had the hotspot on temporarily for about 4 hours.  This seems to have changed with this firmware update or possibly as a side effect of having blocked the PVS from accessing the internet on my network.
-
+For the PVS, the wifi hotspot is active for at least 4 hours whenever you power cycle it.  It will also stay up indefinitely as long as you hit dl_cgi once every 30 minutes.
 As a result, we can possibly take advantage of this to poll the PVS.
 
 1. Look for a wifi point called "SunPowerXXXXX", where XXXXX will be some numbers. These numbers are actually the 5th, 6th and last 3 numbers of the PVS Serial #.
+   1. For example, if your serial number is "ZT19**05**85000549A6**185**", the SSID will be "SunPower05185"
+   1. If you do not see it, power cycle the PVS.  The wifi hotspot should appear a little bit after it's been turned on again.
 
 
 2. Per [Dolf Starreveld's documentation](https://starreveld.com/PVS6%20Access%20and%20API.pdf), the password for this wifi point is also derived from the PVS serial number.  
@@ -113,7 +116,9 @@ As a result, we can possibly take advantage of this to poll the PVS.
 
 4. From here, you can just poll the PVS for data and add whatever you want locally (like a field computer) or have a pi (or similar setup) just proxy to a wifi connection instead of a wired one like above.
 
+5. NOTE: This hotspot should remain on as long as you hit dl_cgi **AT LEAST ONCE** every 30 minutes.  Otherwise, it will disappear again after some time.  You can always power cycle it again if you want the wifi point back for infrequent health checks.
+
 
 ### Improvements to the guide and my own setup
-* The caddy setup I'm using is not as secure as I want.  I would much rather restrict it to GETs, use HTTPS and protect it with some credentials. 
+* The caddy setup I'm using is not as secure as I want.  I would much rather restrict it to GETs, use HTTPS and protect it behind some credentials. 
 * Add guide to python script once I'm done with the refactor
