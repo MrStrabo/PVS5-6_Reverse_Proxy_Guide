@@ -8,6 +8,7 @@ Prior to trying anything here, you will want to block the PVS from the internet 
 There are two ways you can establish this proxy. You can either connect a pi/device/computer directly to the PVS's LAN port or possibly directly connect to the PVS via its wifi hotspot.  Both of these methods are described further down.
 
 I took the approach of connecting a Raspberry Pi Zero W to my PVS6's LAN port.  However, you should be able to use ANY computer with Debian OS that has wifi and an ethernet port.
+
 Here is what my setup looks like: 
 ![PVS_Full_Setup.jpg](PVS_Full_Setup.jpg) 
 
