@@ -115,5 +115,5 @@ As a result, we can possibly take advantage of this to poll the PVS.
 
 
 ### Improvements to the guide and my own setup
-* The caddy setup I'm using is not as secure as I want.  I would much rather restrict it to GETs and protect it with some credentials. 
+* The caddy setup I'm using is not as secure as I want.  I would much rather restrict it to GETs, use HTTPS and protect it with some credentials. 
 * Add guide to python script once I'm done with the refactor
