@@ -33,17 +33,17 @@ While some people have had success using a generic USB 2.0 ethernet dongle, [Dol
     * Cable Matters 202023 (I got this one)
 
 
-4. Now that you have determined what the LAN port is, let's start by installing the Raspberry Pi OS Lite on the pi.  
-   1. If you are using a Debian OS computer instead of a Pi.  You can skip to step iv
+4. Now that you have determined what the LAN port is, let's start by installing Raspberry Pi OS Lite on the pi.  
+   1. If you are using a Debian OS computer instead of a Pi.  You can skip to step iv.
    2. There are numerous guides for this, but the easiest way is to use the [Raspberry Pi Imager from raspberrypi.com](https://www.raspberrypi.com/software/). 
-   3. Install the Raspberry Pi OS Lite.  Be sure to set up the image to have the ssh server and already have wifi configured to connect to your own wifi network.
+   3. Install Raspberry Pi OS Lite.  Be sure to set up the image to have the ssh server and already have wifi configured to connect to your own wifi network.
    4. Make a note of the IP address that the pi is using and ensure you can SSH into it
       1. example ssh command line (should also work in windows): ssh pi@192.168.86.222
       2. Just to update the OS and install a tool we will need later to verify, run this command too:
          1. sudo apt-get update && sudo apt-get install curl && sudo apt-get upgrade -y
       
 
-5. Once you have the Raspberry Pi OS Lite installed and you can successfully connect to it, it's time to connect it to the PVS.
+5. Once you have Raspberry Pi OS Lite installed and you can successfully connect to it, it's time to connect it to the PVS.
    1. Turn off the PVS by turning off the breaker connected to the PVS.  Ensure the light is off.
    2. Connect the raspberry pi's ethernet port to the LAN port on the PVS.
       1. Note: The LAN port might be the USB port as shown in my PVS6 picture above.
@@ -52,7 +52,7 @@ While some people have had success using a generic USB 2.0 ethernet dongle, [Dol
    
 
 6. Now that everything is on, verify that the pi has a valid connection to the PVS.
-   1. SSH into the pi.  You should be at the command prompt
+   1. SSH into the pi.  You should be at the command prompt.
    2. Since the PVS also functions as a DHCP server, we can verify easily if the pi has a valid connection by running the "ifconfig" command.
       ![ValidPVSConnection.png](ValidPVSConnection.png)
    3. If you see that you have an ip address in the form 172.27.153.xxx from gateway 172.27.153.255, then the PVS DHCP server is working for you.  
@@ -71,7 +71,7 @@ While some people have had success using a generic USB 2.0 ethernet dongle, [Dol
          4. ???????
          
       
-8. We now have a connection to the PVS and verified we can hit the API.  However, we still need a way to other devices (for example, Home Assistant) connect to get the PVS data.
+8. We now have a connection to the PVS and verified we can hit the API.  However, we still need a way for other devices (for example, Home Assistant) to connect to get the PVS data.
 To do this, we will need to install what is called a "reverse proxy".  This will act as a bridge between your real network and the PVS.  On the home assistant guides, you will see they use haproxy.  For this guide, we will instead use Caddy, which I find to be easier to use than haproxy.
    1. Install Caddy using these instructions: https://caddyserver.com/docs/install#debian-ubuntu-raspbian
    2. Once Caddy is installed and working, add this to the /etc/caddy/Caddyfile 
@@ -89,15 +89,16 @@ To do this, we will need to install what is called a "reverse proxy".  This will
       ![browserToPVSProxy.png](browserToPVSProxy.png)
       
    
-9. With this, you now have a reverse proxy that you can use to hit the PVS API locally!  Simply refer to port   
+9. With this, you now have a reverse proxy that you can use to hit the PVS API locally!    
    1. If you have Home Assistant, you can make use of the [Home Assistant Sunpower integration](https://github.com/krbaker/hass-sunpower)
    2. If you do not want to use Home Assistant, I am currently working refactoring some of my code in the Python script that I use which I will post in the near future.
    
    
 ## Directly connect to the PVS via its wifi hotspot 
 
-At least for my PVS, which has firmware 2025.04 build 61829, the PVS's wifi hotspot appears to be on permanently (or at least a very very long time).  Prior versions only had the hotspot on temporarily for about 4 hours.  This seems to have changed with this firmware update.  
-As a result, we can take advantage of this to poll the PVS.
+At least for my PVS, which has firmware 2025.04 build 61829, the PVS's wifi hotspot appears to be on permanently (or at least a very very long time).  Prior versions only had the hotspot on temporarily for about 4 hours.  This seems to have changed with this firmware update or possibly as a side effect of having blocked the PVS from accessing the internet on my network.
+
+As a result, we can possibly take advantage of this to poll the PVS.
 
 1. Look for a wifi point called "SunPowerXXXXX", where XXXXX will be some numbers. These numbers are actually the 5th, 6th and last 3 numbers of the PVS Serial #.
 
@@ -107,7 +108,7 @@ As a result, we can take advantage of this to poll the PVS.
       1. For example, the password is "19056185" if the PVS serial number is ZT**1905**85000549A**6185**
 
 
-3. Once you connect to the wifi point, simple open a web browser and attempt to go to http://172.27.153.1/cgi-bin/dl_cgi?Command=DeviceList 
+3. Once you connect to the wifi point, open a web browser and attempt to go to http://172.27.153.1/cgi-bin/dl_cgi?Command=DeviceList 
    ![PVSHotspotBrowserCall.png](PVSHotspotBrowserCall.png)
 
 4. From here, you can just poll the PVS for data and add whatever you want locally (like a field computer) or have a pi (or similar setup) just proxy to a wifi connection instead of a wired one like above.
