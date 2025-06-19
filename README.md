@@ -3,7 +3,7 @@ This is a guide to establish a working proxy/bridge to the PVS that you can use 
 
 Alot of the info from this guide comes from [Dolf Starreveld's documentation](https://starreveld.com/PVS6%20Access%20and%20API.pdf) and the [PVS6 Notes](https://gist.github.com/koleson/5c719620039e0282976a8263c068e85c) written by [/u/ItsaMeKielO](https://www.reddit.com/user/ItsaMeKielO/).
 
-Other info comes from info I found in the [/r/Sunpower subreddit](https://www.reddit.com/r/sunpower).
+Other info comes from stuff I read in the [/r/Sunpower subreddit](https://www.reddit.com/r/sunpower).
 
 Prior to trying anything here, you will want to block the PVS from the internet on your wifi network.  This should force it over to cellular mode which, in theory, should not do a firmware update.
 
