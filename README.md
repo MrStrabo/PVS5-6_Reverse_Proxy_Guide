@@ -61,7 +61,7 @@ While some people have had success using a generic USB 2.0 ethernet dongle, [Dol
    1. SSH into the pi.  You should be at the command prompt.
    2. Since the PVS also functions as a DHCP server, we can verify easily if the pi has a valid connection by running the "ifconfig" command.
       ![ValidPVSConnection.png](ValidPVSConnection.png)
-   3. If you see that you have an ip address in the form 172.27.153.xxx from gateway 172.27.153.255, then the PVS DHCP server is working for you.  
+   3. If you see that you have an ip address in the form 172.27.153.xxx from broadcast 172.27.153.255, then the PVS DHCP server is working for you.  
       1. If not, check if you are using the "recommended" dongle if using a USB port or the right "LAN" port.
       
       
@@ -120,7 +120,7 @@ As a result, we can possibly take advantage of this to poll the PVS.
 
 4. From here, you can just poll the PVS for data and add whatever you want locally (like a field computer) or have a pi (or similar setup) just proxy to a wifi connection instead of a wired one like above.
 
-5. NOTE: This hotspot should remain on as long as you hit dl_cgi **AT LEAST ONCE** every 30 minutes.  Otherwise, it will disappear again after some time.  You can always power cycle it again if you want the wifi point back for infrequent health checks.
+5. NOTE: Based on some extra info, this hotspot should remain on as long as you hit dl_cgi **AT LEAST ONCE** every 30 minutes.  Otherwise, it will disappear again after some time.  You can always power cycle it again if you want the wifi point back for infrequent health checks.
 
 
 ### Improvements to the guide and my own setup
